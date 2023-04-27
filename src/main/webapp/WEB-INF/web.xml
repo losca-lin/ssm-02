@@ -1,0 +1,80 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1" metadata-complete="true">
+
+  <display-name>Archetype Created Web Application</display-name>
+<!--  注册springmvc的serlvet，即前端控制器，处理请求-->
+<!--  restful过滤器-->
+<!--  请注意是在web.xml文件中-->
+<!--  编码拦截器或过滤器，必须是第一个拦截器-->
+   <filter>
+          <filter-name>encoding </filter-name>
+          <filter-class>org.springframework.web.filter.CharacterEncodingFilter </filter-class>
+          <init-param>
+              <param-name>encoding </param-name>
+              <param-value>UTF-8 </param-value>
+          </init-param>
+      </filter>
+      <filter-mapping>
+          <filter-name>encoding </filter-name>
+          <url-pattern>/* </url-pattern>
+      </filter-mapping>
+  <filter>
+    <filter-name>restful</filter-name>
+    <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>restful</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+    <!-- Spring监听器 -->
+    <!-- 如果不特意指定参数名为contextConfigLoction的<context-parameter>元素，
+        那么spring的ContextLoderListener监听器就会在/WEB-INF/下去寻找并加载该目录下的名为
+        applicationContext.xml这个文件 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application-context.xml</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <listener-class>com.example.service.impl.InitComponent</listener-class>
+    </listener>
+
+    <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <!--servlet-class中的值是spring-webmvc包提供的类，即前端控制器，用于控制所有请求 -->
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet </servlet-class>
+
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <!---加载配置-->
+      <param-value>classpath:application-context.xml</param-value>
+    </init-param>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <!--url-pattern（重点）中有3个值，分别为/、 /*、 *.action -->
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  <!--spring前端控制器注册结束-->
+  <!--配置默认请求的页面，比如http://localhost:8080/ssm01
+  以上请求默认会有一个处理页面，一般默认值index.jsp或index.html 如下代码，即默认打开login.jsp。
+  优先级按代码顺序
+  -->
+
+  <welcome-file-list>
+    <welcome-file>a.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
