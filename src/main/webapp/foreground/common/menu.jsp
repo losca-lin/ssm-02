@@ -32,7 +32,7 @@
 		      <ul class="nav navbar-nav">
 		        <%--<li><a href="${pageContext.request.contextPath}/download.html"><font color="black"><strong>系统介绍</strong></font></a></li>--%>
 		        <%--<li><a href="https://mp.weixin.qq.com/mp/homepage?__biz=MzI5NTExMTE3OA==&hid=1&sn=0900087a8d9d4921105072fd0cb24e33"><font color="black"><strong>更多Java项目源码</strong></font></a></li>--%>
-		        <li><a href="${pageContext.request.contextPath}/login.jsp" target=“_blank”><font color="black"><strong>管理中心</strong></font></a></li>
+		        <li><a href="${pageContext.request.contextPath}/newsperson/loginPage"><font color="black"><strong>管理中心</strong></font></a></li>
 		      </ul>
 		      <form action="${pageContext.request.contextPath}/news/q.html" class="navbar-form navbar-right" role="search" method="post" onsubmit="return checkData()">
 		        <div class="form-group" >

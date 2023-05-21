@@ -1,5 +1,10 @@
 package com.example.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.LinkedList;
@@ -10,12 +15,10 @@ import java.util.List;
  * @author Administrator
  *
  */
-public class News implements Serializable {
-
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class News {
 
     private Integer id; // 编号
     private String title; // 标题
@@ -31,87 +34,14 @@ public class News implements Serializable {
     private String releaseDateStr; // 发布日期字符串 只取年和月
     private String keyWord; // 关键字 空格隔开
 
+    private Integer pid;
+
+    private String pname;
+
+    private String file;
+
+
     private List<String> imagesList=new LinkedList<String>(); // 科普信息里存在的图片 主要用于列表展示显示缩略图
-
-    public Integer getId() {
-        return id;
-    }
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    public String getTitle() {
-        return title;
-    }
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    public String getSummary() {
-        return summary;
-    }
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-    public Integer getClickHit() {
-        return clickHit;
-    }
-    public void setClickHit(Integer clickHit) {
-        this.clickHit = clickHit;
-    }
-    public Integer getReplyHit() {
-        return replyHit;
-    }
-    public void setReplyHit(Integer replyHit) {
-        this.replyHit = replyHit;
-    }
-    public String getContent() {
-        return content;
-    }
-    public void setContent(String content) {
-        this.content = content;
-    }
-    public String getContentNoTag() {
-        return contentNoTag;
-    }
-    public void setContentNoTag(String contentNoTag) {
-        this.contentNoTag = contentNoTag;
-    }
-    public NewsType getNewsType() {
-        return newsType;
-    }
-    public void setNewsType(NewsType newsType) {
-        this.newsType = newsType;
-    }
-    public Integer getNewsCount() {
-        return newsCount;
-    }
-    public void setNewsCount(Integer newsCount) {
-        this.newsCount = newsCount;
-    }
-    public String getReleaseDateStr() {
-        return releaseDateStr;
-    }
-    public void setReleaseDateStr(String releaseDateStr) {
-        this.releaseDateStr = releaseDateStr;
-    }
-    public String getKeyWord() {
-        return keyWord;
-    }
-    public void setKeyWord(String keyWord) {
-        this.keyWord = keyWord;
-    }
-
-    public List<String> getImagesList() {
-        return imagesList;
-    }
-    public void setImagesList(List<String> imagesList) {
-        this.imagesList = imagesList;
-    }
 
 
 

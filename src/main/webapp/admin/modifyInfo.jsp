@@ -61,10 +61,10 @@
 	   			<td>个性签名：</td>
 	   			<td><input type="text" id="sign" name="sign" value="${sessionScope.loginNewsperson.sign }" style="width: 400px;"/></td>
 	   		</tr>
-	   		<tr>
-	   			<td>个人头像：</td>
-	   			<td><input type="file" id="imageFile" name="imageFile" style="width: 400px;"/></td>
-	   		</tr>
+	   		<%--<tr>--%>
+	   		<%--	<td>个人头像：</td>--%>
+	   		<%--	<td><input type="file" id="imageFile" name="imageFile" style="width: 400px;"/></td>--%>
+	   		<%--</tr>--%>
 			<tr>
 				<td>邮箱：</td>
 				<td><input type="text" id="email" name="email" value="${sessionScope.loginNewsperson.email }" style="width: 400px;"/><span style="color: red;">${requestScope.errors.email}</span></td>

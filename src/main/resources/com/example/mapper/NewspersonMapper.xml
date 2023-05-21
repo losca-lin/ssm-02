@@ -14,6 +14,15 @@
     <select id="getByName" resultType="Newsperson">
         select * from t_newsperson where name = #{name}
     </select>
+    <select id="list" resultType="com.example.pojo.Newsperson">
+        select * from t_newsperson
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+    <select id="getTotal" resultType="java.lang.Long">
+        select count(*) from t_newsperson
+    </select>
 
     <insert id="insert">
         insert into t_newsperson

@@ -61,8 +61,8 @@
 					<img src="${pageContext.request.contextPath}/static/images/user.png"/>
 <%--					<img src="${pageContext.request.contextPath}/static/userImages/${newsperson.imageName }" οnerrοr="nofind();"/>--%>
 				</div>
-				<div class="nickName">[${newsperson.nickName }]</div>
-				<div class="userSign">(${newsperson.sign })</div>
+				<div class="nickName">[${loginNewsperson != null ?loginNewsperson.name:"请登录哦"}]</div>
+				<div class="userSign">${loginNewsperson.sign }</div>
 			</div>
 
 			<div class="data_list">

@@ -14,7 +14,7 @@
     </resultMap>
 
     <insert id="add" parameterType="Comment">
-		insert into t_comment values(null,#{userIp},#{news.id},#{content},now(),0)
+		insert into t_comment values(null,#{userIp},#{username},#{news.id},#{content},now(),0)
 	</insert>
 
     <update id="update" parameterType="Comment">

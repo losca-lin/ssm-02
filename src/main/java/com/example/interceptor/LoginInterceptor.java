@@ -14,7 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         System.out.println("preHandle:::" + request.getRequestURL());
         StringBuffer url = request.getRequestURL();
 
-        if (url.toString().endsWith("newsperson/login")||url.toString().endsWith("newsperson/reg")||url.toString().endsWith("index.html")) {
+        if (url.toString().endsWith("newsperson/login")||url.toString().endsWith("newsperson/reg")||url.toString().endsWith("index.html") ||url.toString().endsWith("/upload")) {
             return true;
         }else {
             //获取session对象

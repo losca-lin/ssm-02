@@ -1,12 +1,14 @@
 package com.example.service.impl;
 
         import com.example.mapper.NewspersonMapper;
+        import com.example.pojo.NewsType;
         import com.example.pojo.Newsperson;
         import com.example.service.NewspersonService;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.stereotype.Service;
 
         import java.util.List;
+        import java.util.Map;
 
 @Service("newspersonService")
 public class NewspersonServiceImpl implements NewspersonService {
@@ -41,5 +43,15 @@ public class NewspersonServiceImpl implements NewspersonService {
     @Override
     public List<Newsperson> getList() {
         return newspersonMapper.getList();
+    }
+
+    @Override
+    public List<Newsperson> list(Map<String, Object> map) {
+        return newspersonMapper.list(map);
+    }
+
+    @Override
+    public Long getTotal(Map<String, Object> map) {
+        return newspersonMapper.getTotal(map);
     }
 }

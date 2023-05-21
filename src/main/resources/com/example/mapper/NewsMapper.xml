@@ -97,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="News">
-		insert into t_news values(null,#{title},#{summary},now(),0,0,#{content},#{newsType.id},#{keyWord})
+		insert into t_news values(null,#{title},#{summary},now(),0,0,#{content},#{newsType.id},#{keyWord},#{pid},#{pname},#{file})
 	</insert>
 
     <delete id="delete" parameterType="Integer">

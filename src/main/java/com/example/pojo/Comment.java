@@ -16,16 +16,27 @@ public class Comment {
     private Date commentDate; // 评论日期
     private Integer state; // 审核状态  0 待审核 1 审核通过 2 审核未通过
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    private String username;
+
     public Comment() {
     }
 
-    public Comment(Integer id, String userIp, String content, News news, Date commentDate, Integer state) {
+    public Comment(Integer id, String userIp, String content, News news, Date commentDate, Integer state, String username) {
         this.id = id;
         this.userIp = userIp;
         this.content = content;
         this.news = news;
         this.commentDate = commentDate;
         this.state = state;
+        this.username = username;
     }
 
     public Integer getId() {

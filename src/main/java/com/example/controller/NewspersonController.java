@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,18 @@ public class NewspersonController {
     @Autowired
     private NewspersonService newspersonService;
 
+    @GetMapping("/loginPage")
+    public String loginPage(Model model, HttpSession session){
+        Newsperson newsperson = (Newsperson) session.getAttribute("loginNews-person");
+        if (newsperson == null){
+            return "redirect:../login.jsp";
+        }else if(newsperson.getName().equals("admin")){
+            return "redirect:../admin/main.jsp";
+        }else {
+            return "redirect:../main.jsp";
+        }
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(String name, String password, Model model, HttpSession session) {
         System.out.println("login:::name:::" + name + ", password:::" + password);
@@ -33,11 +46,11 @@ public class NewspersonController {
             //session保存
             session.setAttribute("loginNewsperson", bean);
             //记住密码，使用Cookie
-            return "forward:../admin/main.jsp";
+            return "redirect:../admin/main.jsp";
         }
         else if (bean != null){
             session.setAttribute("loginNewsperson", bean);
-            return "forward:../mainTemp.jsp";
+            return "redirect:../main.jsp";
         }
         else {
             //登录失败
@@ -45,6 +58,8 @@ public class NewspersonController {
             return "forward:../login.jsp";
         }
     }
+
+
 
     @PostMapping("/reg")
     public String reg(@Valid Newsperson bean, BindingResult br, String cfmpassword, Model model) {

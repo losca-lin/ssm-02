@@ -49,6 +49,8 @@ public class CommentController {
 		}else{
 			String userIp=request.getRemoteAddr(); // 获取用户IP
 			comment.setUserIp(userIp);
+			String username = comment.getUsername();
+			comment.setUsername(username);
 			if(comment.getId()==null){
 				resultTotal=commentService.add(comment);
 				// 该科普信息评论的回复次数加1

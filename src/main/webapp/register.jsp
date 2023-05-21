@@ -205,7 +205,7 @@
     </DIV>
 </form>
 <div style="text-align:center;padding-top: 30px">
-    Javanoteany 科普信息中心
+
 </div>
 </body>
 </html>

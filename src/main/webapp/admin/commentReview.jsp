@@ -59,6 +59,7 @@
         <th field="id" width="20" align="center">编号</th>
         <th field="news" width="200" align="center" formatter="formatNewsTitle">科普信息标题</th>
 <%--        <th field="userIp" width="100" align="center">用户IP</th>--%>
+        <th field="username" width="100" align="center">用户名称</th>
         <th field="content" width="200" align="center">评论内容</th>
         <th field="commentDate" width="50" align="center">评论日期</th>
     </tr>

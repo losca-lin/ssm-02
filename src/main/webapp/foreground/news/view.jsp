@@ -21,7 +21,7 @@
 		}else if(imageCode==null || imageCode==''){
 			alert("请填写验证码！");
 		}else{
-			$.post("${pageContext.request.contextPath}/comment/save.do",{'content':content,'imageCode':imageCode,'news.id':'${news.id}'},function(result){
+			$.post("${pageContext.request.contextPath}/comment/save.do",{'content':content,'imageCode':imageCode,'news.id':'${news.id}','username':'${loginNewsperson.name}'},function(result){
 				if(result.success){
 					window.location.reload();
 					alert("评论已提交成功，审核通过后显示！");
@@ -47,7 +47,7 @@
 		<div class="bshare-custom"><a title="分享到QQ空间" class="bshare-qzone"></a><a title="分享到新浪微博" class="bshare-sinamininews"></a><a title="分享到人人网" class="bshare-renren"></a><a title="分享到腾讯微博" class="bshare-qqmb"></a><a title="分享到网易微博" class="bshare-neteasemb"></a><a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a><span class="BSHARE_COUNT bshare-share-count">0</span></div><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=1&amp;lang=zh"></script><script type="text/javascript" charset="utf-8" src="http://static.bshare.cn/b/bshareC0.js"></script>
 	   </div>
 		<div class="news_info">
-			发布时间：『 <fmt:formatDate value="${news.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;科普信息类别：${news.newsType.typeName}&nbsp;&nbsp;阅读(${news.clickHit}) 评论(${news.replyHit})
+			发布时间：『 <fmt:formatDate value="${news.releaseDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>』&nbsp;&nbsp;科普信息类别：${news.newsType.typeName}&nbsp;&nbsp;作者：${news.pname}&nbsp;&nbsp;阅读(${news.clickHit}) 评论(${news.replyHit})
 		</div>
 		<div class="news_content">
 			${news.content }
@@ -67,6 +67,12 @@
 		</div>
 		<div class="news_lastAndNextPage">
 			${pageCode }
+		</div>
+
+		<div>
+			<c:if test="${news.file != null && news.file != ''}">
+				<a href="https://adopt-zuo.oss-cn-hangzhou.aliyuncs.com/${news.file}" target="_blank">查看附件</a>
+			</c:if>
 		</div>
 	</div>
 </div>
@@ -88,7 +94,7 @@
 						<c:choose>
 							<c:when test="${status.index<10 }">
 								<div class="comment">
-									<span><font>${status.index+1 }楼&nbsp;&nbsp：</font>${comment.content }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate value="${comment.commentDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>&nbsp;]</span>
+									<span><font>${comment.username }&nbsp;&nbsp：</font>${comment.content }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[&nbsp;<fmt:formatDate value="${comment.commentDate }" type="date" pattern="yyyy-MM-dd HH:mm"/>&nbsp;]</span>
 								</div>								
 							</c:when>
 							<c:otherwise>
