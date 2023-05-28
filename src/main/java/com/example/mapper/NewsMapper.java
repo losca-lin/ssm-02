@@ -27,6 +27,7 @@ public interface NewsMapper {
      * @return
      */
      List<News> list(Map<String, Object> map);
+     List<News> list2(Map<String, Object> map);
 
     /**
      * 获取总记录数
@@ -34,6 +35,7 @@ public interface NewsMapper {
      * @return
      */
      Long getTotal(Map<String, Object> map);
+     Long getTotal2(Map<String, Object> map);
 
     /**
      * 通过Id查找实体

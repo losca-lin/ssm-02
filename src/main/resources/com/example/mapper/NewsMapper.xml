@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.mapper.NewsMapper">
 
@@ -16,31 +16,69 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <association property="newsType" column="typeId" select="com.example.mapper.NewsTypeMapper.getById"/>
     </resultMap>
 
-    <select id="countList"  resultMap="NewsResult">
-		SELECT DATE_FORMAT(releaseDate,'%Y年%m月') AS releaseDateStr ,COUNT(*) AS newsCount
-		FROM t_news GROUP BY DATE_FORMAT(releaseDate,'%Y年%m月') ORDER BY DATE_FORMAT(releaseDate,'%Y年%m月') DESC;
-	</select>
+    <select id="countList" resultMap="NewsResult">
+        SELECT DATE_FORMAT(releaseDate, '%Y年%m月') AS releaseDateStr, COUNT(*) AS newsCount
+        FROM t_news
+        GROUP BY DATE_FORMAT(releaseDate, '%Y年%m月')
+        ORDER BY DATE_FORMAT(releaseDate, '%Y年%m月') DESC;
+    </select>
 
     <select id="list" parameterType="Map" resultMap="NewsResult">
         select * from t_news
         <where>
-        <if test="title!=null and title!='' ">
-            and title like #{title}
-        </if>
-        <if test="typeId!=null and typeId!='' ">
-            and typeId = #{typeId}
-        </if>
-        <if test="releaseDateStr!=null and releaseDateStr!='' ">
-            and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
-        </if>
-    </where>
+            status = "已审核"
+            <if test="title!=null and title!='' ">
+                and title like '%${title}%'
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and typeId = #{typeId}
+            </if>
+            <if test="releaseDateStr!=null and releaseDateStr!='' ">
+                and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+            </if>
+        </where>
         order by releaseDate desc
         <if test="start!=null and size!=null">
             limit #{start},#{size}
         </if>
     </select>
 
+    <select id="list2" parameterType="Map" resultMap="NewsResult">
+        select * from t_news
+        <where>
+            <if test="title!=null and title!='' ">
+                and title like #{title}
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and typeId = #{typeId}
+            </if>
+            <if test="releaseDateStr!=null and releaseDateStr!='' ">
+                and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+            </if>
+        </where>
+        order by releaseDate desc
+        <if test="start!=null and size!=null">
+            limit #{start},#{size}
+        </if>
+    </select>
+
+
     <select id="getTotal" parameterType="Map" resultType="Long">
+        select count(*) from t_news
+        <where>
+            status = "已审核"
+            <if test="title!=null and title!='' ">
+                and title like #{title}
+            </if>
+            <if test="typeId!=null and typeId!='' ">
+                and typeId = #{typeId}
+            </if>
+            <if test="releaseDateStr!=null and releaseDateStr!='' ">
+                and DATE_FORMAT(releaseDate,'%Y年%m月') = #{releaseDateStr}
+            </if>
+        </where>
+    </select>
+    <select id="getTotal2" parameterType="Map" resultType="Long">
         select count(*) from t_news
         <where>
             <if test="title!=null and title!='' ">
@@ -56,8 +94,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="getById" parameterType="Integer" resultMap="NewsResult">
-		select * from t_news where id=#{id}
-	</select>
+        select *
+        from t_news
+        where id = #{id}
+    </select>
 
     <update id="update" parameterType="News">
         update t_news
@@ -83,28 +123,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="keyWord!=null and keyWord!='' ">
                 keyWord=#{keyWord},
             </if>
+            <if test="status!=null and keyWord!='' ">
+                status=#{status},
+            </if>
         </set>
         where id=#{id}
     </update>
 
     <select id="getLastNews" parameterType="Integer" resultMap="NewsResult">
-		SELECT * FROM t_news WHERE id&lt;#{id} ORDER BY id DESC LIMIT 1
-	</select>
+        SELECT *
+        FROM t_news
+        WHERE id &lt; #{id}
+          and status = "已审核"
+        ORDER BY id DESC LIMIT 1
+    </select>
 
     <select id="getNextNews" parameterType="Integer" resultMap="NewsResult">
-		SELECT * FROM t_news WHERE id&gt;#{id} ORDER BY id ASC LIMIT 1
-	</select>
+        SELECT *
+        FROM t_news
+        WHERE id &gt; #{id}
+          and status = "已审核"
+        ORDER BY id ASC LIMIT 1
+    </select>
 
 
     <insert id="add" useGeneratedKeys="true" keyProperty="id" parameterType="News">
-		insert into t_news values(null,#{title},#{summary},now(),0,0,#{content},#{newsType.id},#{keyWord},#{pid},#{pname},#{file})
-	</insert>
+        insert into t_news
+        values (null, #{title}, #{summary}, now(), 0, 0, #{content}, #{newsType.id}, #{keyWord}, #{pid}, #{pname},
+                #{file},'待审核')
+    </insert>
 
     <delete id="delete" parameterType="Integer">
-		delete from t_news where id=#{id}
-	</delete>
+        delete
+        from t_news
+        where id = #{id}
+    </delete>
 
     <select id="getNewsByTypeId" parameterType="Integer" resultType="Integer">
-		select count(*) from t_news where typeId=#{typeId}
-	</select>
+        select count(*)
+        from t_news
+        where typeId = #{typeId}
+          and status = "已审核"
+    </select>
 </mapper>

@@ -39,6 +39,7 @@ public class News {
     private String pname;
 
     private String file;
+    private String status;
 
 
     private List<String> imagesList=new LinkedList<String>(); // 科普信息里存在的图片 主要用于列表展示显示缩略图

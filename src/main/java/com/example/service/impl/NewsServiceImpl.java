@@ -23,10 +23,22 @@ public class NewsServiceImpl implements NewsService {
     public List<News> list(Map<String, Object> map) {
         return newsMapper.list(map);
     }
+
+    @Override
+    public List<News> list2(Map<String, Object> map) {
+        return newsMapper.list2(map);
+    }
+
     @Override
     public Long getTotal(Map<String, Object> map) {
         return newsMapper.getTotal(map);
     }
+
+    @Override
+    public Long getTotal2(Map<String, Object> map) {
+        return newsMapper.getTotal2(map);
+    }
+
     @Override
     public News getById(Integer id) {
         return newsMapper.getById(id);

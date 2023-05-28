@@ -141,7 +141,7 @@
                 'keyWord': keyWord,
                 'pid': pid,
                 'pname': pname,
-                'file':file
+                'file': file
             }, function (result) {
                 if (result.success) {
                     alert("科普信息发布成功！");

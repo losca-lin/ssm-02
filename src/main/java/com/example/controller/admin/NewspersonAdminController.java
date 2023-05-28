@@ -73,6 +73,29 @@ public class NewspersonAdminController {
 		return null;
 	}
 
+	@RequestMapping("/update")
+	public String update(@RequestParam(value = "imageFile",required = false) MultipartFile imageFile, Newsperson newsperson, Model model,
+					   BindingResult br, HttpServletRequest request, HttpServletResponse response)throws Exception{
+		if(imageFile != null){
+			String filePath=request.getServletContext().getRealPath("/");
+			String imageName=DateUtil.getCurrentDateStr()+"."+imageFile.getOriginalFilename().split("\\.")[1];
+			imageFile.transferTo(new File(filePath+"static/userImages/"+imageName));
+			newsperson.setImageName(imageName);
+		}
+		System.out.println(newsperson);
+		boolean resultTotal= newspersonService.update(newsperson);
+		System.out.println(resultTotal);
+		// StringBuffer result=new StringBuffer();
+		JSONObject result=new JSONObject();
+		if(resultTotal){
+			result.put("success", true);
+		}else{
+			result.put("success", false);
+		}
+		ResponseUtil.write(response, result);
+		return null;
+	}
+
 	@RequestMapping("/find")
 	public String find(HttpServletResponse response, int id)throws Exception{
 		Newsperson newsperson = newspersonService.getById(id);

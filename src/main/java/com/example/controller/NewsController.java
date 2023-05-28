@@ -76,7 +76,11 @@ public class NewsController {
         }
         ModelAndView mav=new ModelAndView();
         mav.addObject("mainPage", "foreground/news/result.jsp");
-        List<News> newsList = newsIndex.searchNews(q.trim());
+        Map<String,Object> map=new HashMap<String,Object>();
+        map.put("title", q.trim());
+        List<News> newsList = newsService.list(map);
+        // List<News> newsList = newsIndex.searchNews(q.trim());
+
         Integer toIndex= newsList.size()>=Integer.parseInt(page)*10?Integer.parseInt(page)*10: newsList.size();
         mav.addObject("newsList", newsList.subList((Integer.parseInt(page)-1)*10, toIndex));
         mav.addObject("pageCode",this.genUpAndDownPageCode(Integer.parseInt(page), newsList.size(), q,10,request.getServletContext().getContextPath()));

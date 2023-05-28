@@ -51,10 +51,10 @@ public class NewsAdminController {
 		int resultTotal=0; // 操作的记录条数
 		if(news.getId()==null){
 			resultTotal= newsService.add(news);
-			newsIndex.addIndex(news); // 添加科普信息索引
+			// newsIndex.addIndex(news); // 添加科普信息索引
 		}else{
 			resultTotal= newsService.update(news);
-			newsIndex.updateIndex(news); // 更新科普信息索引
+			// newsIndex.updateIndex(news); // 更新科普信息索引
 			System.out.println(news);
 		}
 		JSONObject result=new JSONObject();
@@ -83,8 +83,8 @@ public class NewsAdminController {
 		map.put("title", StringUtil.formatLike(s_news.getTitle()));
 		map.put("start", pageBean.getStart());
 		map.put("size", pageBean.getPageSize());
-		List<News> newsList = newsService.list(map);
-		Long total= newsService.getTotal(map);
+		List<News> newsList = newsService.list2(map);
+		Long total= newsService.getTotal2(map);
 		JSONObject result=new JSONObject();
 		JsonConfig jsonConfig=new JsonConfig();
 		jsonConfig.registerJsonValueProcessor(java.util.Date.class, new DateJsonValueProcessor("yyyy-MM-dd"));
@@ -108,7 +108,21 @@ public class NewsAdminController {
 		String []idsStr=ids.split(",");
 		for(int i=0;i<idsStr.length;i++){
 			newsService.delete(Integer.parseInt(idsStr[i]));
-			newsIndex.deleteIndex(idsStr[i]); // 删除对应科普信息的索引
+			// newsIndex.deleteIndex(idsStr[i]); // 删除对应科普信息的索引
+		}
+		JSONObject result=new JSONObject();
+		result.put("success", true);
+		ResponseUtil.write(response, result);
+		return null;
+	}
+
+	@RequestMapping("/update")
+	public String update(@RequestParam(value="ids")String ids,HttpServletResponse response)throws Exception{
+		String []idsStr=ids.split(",");
+		for(int i=0;i<idsStr.length;i++){
+			News news = newsService.getById(Integer.parseInt(idsStr[i]));
+			news.setStatus("已审核");
+			newsService.update(news); // 删除对应科普信息的索引
 		}
 		JSONObject result=new JSONObject();
 		result.put("success", true);
